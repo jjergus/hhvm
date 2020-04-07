@@ -10,8 +10,10 @@ To do this:
 
 ```
 cd third-party/thrift/src
+sed -i 's/^  "" #options$/  "no_metadata" #options/' thrift/lib/thrift/CMakeLists.txt
 os_image=ubuntu:18.04 gcc_version=7 make_parallelism=16 travis_cache_dir=~/travis_ccache \
   build/fbcode_builder/travis_docker_build.sh
+git checkout -- thrift/lib/thrift/CMakeLists.txt
 docker ps -a # to get the container ID
 export CONTAINER_ID= # whatever you got from docker ps -a
 cd third-party/thrift/gen/thrift/lib
